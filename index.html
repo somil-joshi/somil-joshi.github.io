@@ -1,7 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .portfolio-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .pdf-viewer {
+            position: relative;
+            background: #fff;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+            border: none;
+            display: block;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            padding: 40px;
+            text-align: center;
+            color: #e74c3c;
+            background: #fdf2f2;
+            margin: 20px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .pdf-embed {
+                height: 70vh;
+                min-height: 500px;
+            }
+        }
+
+        /* Custom scrollbar for webkit browsers */
+        .pdf-embed::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .pdf-embed::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .pdf-embed::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .pdf-embed::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div class="portfolio-container">
+        <div class="header">
+            <h1>Somil Joshi</h1>
+            <p>M.S. Alumnus of Georgia Institute of Technology</p>
+        </div>
+
+        <div class="pdf-viewer">
+            <div class="loading" id="loadingMessage">
+                Loading portfolio...
+            </div>
+            
+            <!-- Replace 'your-portfolio.pdf' with the actual path to your PDF file -->
+            <iframe 
+                id="portfolioPdf" 
+                class="pdf-embed" 
+                src="somil-portfolio.pdf"
+                type="application/pdf"
+                style="display: none;"
+                onload="hideLoading()"
+                onerror="showError()">
+            </iframe>
+
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <h3>Unable to display PDF</h3>
+                <p>Your browser might not support inline PDF viewing, or the PDF file couldn't be found.</p>
+                <p><a href="somil-portfolio.pdf" target="_blank" style="color: #667eea; text-decoration: none; font-weight: bold;">Click here to download and view the portfolio PDF</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hideLoading() {
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('portfolioPdf').style.display = 'block';
+        }
+
+        function showError() {
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('portfolioPdf').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+
+        // Alternative loading check
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (document.getElementById('loadingMessage').style.display !== 'none') {
+                    hideLoading();
+                }
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
